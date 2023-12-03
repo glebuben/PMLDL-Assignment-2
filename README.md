@@ -6,6 +6,51 @@
 * Innopolis email: g.kirillov@innopolis.university
 * Group: BS21-RO
 
+## Installation
+### Clone repository:
+```
+git clone https://github.com/glebuben/PMLDL-Assignment-2.git
+```
+### Create and activate virtual environment
+```console
+cd PMLDL-Assignment-2
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+### Install dependencies
+
+```console
+pip install torch pandas
+pip install torch-scatter -f https://data.pyg.org/whl/torch-2.1.0+cu118html
+pip install torch-sparse -f https://data.pyg.org/whl/torch-2.1.0+cu118.html
+pip install git+https://github.com/pyg-team/pytorch_geometric.git
+```
+
+## How to use
+
+Run the recommendation script with the required arguments:
+```console
+python ./benchmark/evaluate.py [output_type] [data_dir_path] [model_dir_path] --K --user_id
+```
+**output_type** - type for the output (evaluate or recommend). Evaluate - prints Precision and Recall.
+Recommend - prints recommended movies ids
+
+**data_dir_path** - path to benchmark data directory
+
+**model_dir_path** - path to models directory
+
+**--K** - number of movies to recommend
+
+**--user_id** - specify when use `single` type
+
+
+
+For example
+```console
+python ./PMLDL-Assignment-2/benchmark/evaluate.py evaluate PMLDL-Assignment-2/benchmark/data PMLDL-Assignment-2/models --K 20
+```
+
 ## Assignment description
 This assignment is to create a recommender system of movies for users:
 * Your system should suggest some movies to the user based on user's gemographic information(age, gender, occupation, zip code) and favorite movies (list of movie ids).

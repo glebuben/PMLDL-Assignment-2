@@ -208,7 +208,7 @@ def read_data(dir_path):
     including user and item features, and test_df containing user-item interactions for evaluation purposes.
     """
     ratings_df = pd.read_csv(dir_path + '/ratings_df.csv')  # Load user-item interactions
-    features_df = pd.read_csv(dir_path + '/features_df.csv')  # Load node features
+    features_df = pd.read_csv(dir_path + '/features_df.csv', index_col=0)  # Load node features
     test_df = pd.read_csv(dir_path + '/test_df.csv')  # Load test dataset for evaluation
 
     return ratings_df, features_df, test_df
@@ -246,7 +246,7 @@ def evaluate(model, ratings_df, features_df, test_df, K):
         final_user_Embed, final_item_Embed = torch.split(out, (n_users, n_items))
 
         # Calculate evaluation metrics (recall and precision)
-        test_topK_recall, test_topK_precision = get_metrics(final_user_Embed, final_item_Embed, n_users, n_items,
+        test_topK_recall, test_topK_precision = get_metrics(ratings_df, final_user_Embed, final_item_Embed, n_users, n_items,
                                                             test_df, K)
     return round(test_topK_recall, 4), round(test_topK_precision, 4)
 
@@ -305,10 +305,12 @@ if __name__ == "__main__":
 
     ratings_df, features_df, test_df = read_data(args.dir_path)
 
-    model = torch.load(args.model_path + '/lightgcn.pth')
+    model = torch.load(args.model_path + '/lightgcn.pth', map_location="cpu")
     if args.output_type == 'evaluate':
-        evaluate(model, ratings_df, features_df, test_df, args.K)
-    elif args.model_name == 'recommend':
-        get_recommendations(model, args.user_id, args.K, ratings_df, features_df)
-    elif args.model_name == 't5':
-        print('Project is not supposed for T5 training')
+        recall, precision = evaluate(model, ratings_df, features_df, test_df, args.K)
+        print(f'Recall obtained by this model on this dataset is: {recall}')
+        print(f'Precision obtained by this model on this dataset is: {precision}')
+    elif args.output_type == 'recommend':
+        recommendations = get_recommendations(model, args.user_id, args.K, ratings_df, features_df)
+        print(f'Recommended films ids obtained by this model on this dataset: {recommendations}')
+
