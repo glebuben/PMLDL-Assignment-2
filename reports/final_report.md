@@ -28,24 +28,30 @@ All other data entries are complete.
 
 ## Data distributions
 ### Ratings distribution
-![](./figures/Ratings distribution.png)
+![](./figures/Ratings%20distribution.png)
+
 Notes: The count of ratings marked as '1' and '2' appears to be relatively low.
 ### Movie data distribution
 #### Release years distribution
 ![](./figures/Movie%20release%20years%20distribution.png)
+
 Notes: The majority of the movies fall within the range of 1990 to 1997.
 #### Genres distribution
 ![](./figures/Movie%20genres%20distribution.png)
+
 Notes: The most favored genres include action, comedy, drama, romance, and thriller.
 ### User data distribution
 #### Ages distribution
 ![](./figures/User%20ages%20distribution.png)
+
 Notes: Many users fall within the age range of 20 to 35.
 #### Genders distribution
 ![](./figures/User%20genders%20distribution.png)
+
 Notes: There is over twice the number of men compared to women.
 #### Occupations distribution
 ![](./figures/User%20occupations%20distribution.png)
+
 Notes: The breakdown of users' occupations suggests a substantial presence of students within the user demographic.
 
 ## Conclusion
@@ -152,5 +158,38 @@ Within the `train_and_eval` function, the evaluation loop operates in the model'
 
 This evaluation process assesses the model's performance using recall and precision metrics, showcasing its ability to generate meaningful recommendations. The process helps in tracking the model's progress and determining its effectiveness over different epochs.
 
+### Evaluation Metrics Description
+
+#### Recall
+
+Recall is a key evaluation metric that measures the proportion of relevant items that have been recommended out of all the relevant items for a user. In this evaluation, recall is calculated by considering the overlap between the recommended (top-scoring) items and the actual items that users interacted with in the test dataset. A higher recall indicates that the model can successfully recommend a larger portion of the items that users have interacted with.
+
+#### Precision
+
+Precision is another important metric that assesses the relevance of the recommended items. It measures the proportion of recommended items that are relevant to the user out of all the recommended items. In this context, precision is computed by determining the intersection between the recommended items and the user's actual interactions, then dividing it by the total number of recommendations (K). Higher precision signifies that the model suggests a higher ratio of relevant items among the top-K recommendations.
+
+These evaluation metrics, recall and precision, provide insights into different aspects of recommendation quality. Recall emphasizes the ability to capture relevant items, while precision focuses on the accuracy of the recommendations made by the model. Evaluating both metrics helps gauge the overall performance and effectiveness of the recommendation system.
+
 # Results
-...
+## Bayesian Personalized Ranking (BPR) Loss
+![](./figures/BPR%20Training%20Loss.png)
+## Recall Precision
+![](./figures/Recall%20Precision.png)
+### Maximum Precision
+
+The maximum precision achieved was 0.2373, indicating that, at its best performance, the model could recommend approximately 23.73% relevant items within the top-K recommendations made to users. This metric signifies the accuracy of the model in suggesting relevant items among the recommendations provided.
+
+
+### Maximum Recall
+
+The maximum recall attained was 0.353, illustrating that, at its peak performance, the model could successfully recommend around 35.3% of the relevant items that users had interacted with in the test dataset. This metric emphasizes the model's capability to capture a larger portion of the user's actual interactions among the top-scoring recommendations.
+
+## Weights for feature embedding
+### Heatmap
+![](./figures/Weights%20heatmap.png)
+### Scatter plot
+![](./figures/Weights%20scatter.png)
+
+
+
+
